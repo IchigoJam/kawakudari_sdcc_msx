@@ -1,0 +1,49 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 1
+Hexadecimal [32-Bits]
+
+
+
+                                      1   .area CODE (ABS)
+    00004000                          2   .org #0x4000
+    00004000 41 42                    3   .dw 0x4241
+    00004002 10 40                    4   .dw 0x4010 ; init
+    00004004 00 00                    5   .dw 0
+    00004006 00 00                    6   .dw 0
+    00004008 00 00                    7   .dw 0
+    0000400A 00 00                    8   .dw 0
+    0000400C 00 00                    9   .dw 0
+    0000400E 00 00                   10   .dw 0
+                                     11 
+    00004010                         12 init:
+    00004010 CD 21 40         [17]   13   call cls
+                                     14 
+    00004013 21 36 40         [10]   15   ld hl, #message
+    00004016 CD 2D 40         [17]   16   call puts
+                                     17 
+    00004019                         18 Loop:
+    00004019 18 FE            [12]   19   jr Loop
+                                     20 
+    0000401B                         21 width32:
+    0000401B 3E 20            [ 7]   22   ld a, #32     ;WIDTH=32
+    0000401D 32 AF F3         [13]   23   ld (0xF3AF), a
+    00004020 C9               [10]   24   ret
+                                     25 
+    00004021                         26 cls:
+    00004021 CD 1B 40         [17]   27   call width32 ; width 32
+    00004024 3E 01            [ 7]   28   ld a, #1
+    00004026 CD 5F 00         [17]   29   call 0x005F   ; CHGMOD - スクリーンモード切替
+    00004029 CD C3 00         [17]   30   call 0x00C3   ; CLS - 画面全体をクリア
+    0000402C C9               [10]   31   ret
+                                     32 
+    0000402D                         33 puts:
+    0000402D 7E               [ 7]   34   ld a, (hl)
+    0000402E B7               [ 4]   35   or a
+    0000402F C8               [11]   36   ret z
+    00004030 CD A2 00         [17]   37   call 0x00A2   ; BIOSの CHPUT
+    00004033 23               [ 6]   38   inc hl
+    00004034 18 F7            [12]   39   jr puts
+                                     40 
+    00004036                         41 message:
+    00004036 48 65 6C 6C 6F 21 20    42   .ascii "Hello! MSX"
+             4D 53 58
+    00004040 0D 0A 00                43   .db 13, 10, 0

@@ -1,0 +1,21 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 1
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+    .__.$$$.=   00002710 L   |     .__.ABS.=   00000000 G   |     .__.CPU.=   00000000 L
+    .__.H$L.=   00000000 L   |   2 cls         000040C4 R   |   2 inkey       00004061 R
+  2 locate      000040B6 R   |   2 loop_gam    00004016 R   |   2 main        00004010 R
+  2 putchar     000040BA R   |   2 scr         00004067 R   |   2 scr_skip    00004089 R
+  2 scrolldo    00004091 R   |   2 skip1       00004047 R   |   2 skip3       0000404E R
+  2 wait        000040A3 R   |   2 wait_loo    000040A5 R   |   2 width32     000040BE R
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
+Hexadecimal [32-Bits]
+
+Area Table
+
+   0 _CODE      size        0   flags    0
+   1 CODE       size        0   flags    8
+   2 CODE0      size       D0   flags    8
+

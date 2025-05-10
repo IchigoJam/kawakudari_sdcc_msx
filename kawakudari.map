@@ -1,0 +1,37 @@
+ASxxxx Linker V03.00/V05.40 + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+CODE0                  00000000    000000D0 =         208. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000000  l_BIT_BAN |    00000000  l_BSEG    |    00000000  l_BSEG_BY
+     00000000  l_CODE    |    00000000  l_DSEG    |    00000000  l_ISEG   
+     00000000  l_OSEG    |    00000000  l_REG_BAN |    00000000  l_REG_BAN
+     00000000  l_REG_BAN |    00000000  l_REG_BAN |    00000000  l_SSEG   
+     00000000  l__CODE   |    00000000  s_BSEG    |    00000000  s_CODE   
+     00000000  s_CODE0   |    00000000  s_DSEG    |    00000000  s_REG_BAN
+     00000008  s_REG_BAN |    00000010  s_REG_BAN |    00000018  s_BIT_BAN
+     00000018  s_ISEG    |    00000018  s_OSEG    |    00000018  s_REG_BAN
+     00000018  s_SSEG    |    00000020  s_BSEG_BY |    00000020  s__CODE  
+     000000D0  l_CODE0   |    00000100  l_IRAM   
+ASxxxx Linker V03.00/V05.40 + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+.  .ABS.               00000000    00000000 =           0. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000000  .__.ABS. 
+ASxxxx Linker V03.00/V05.40 + sdld,  page 3.
+
+Files Linked                              [ module(s) ]
+
+kawakudari.o                              [  ]
+
+
+
