@@ -31,158 +31,159 @@ Hexadecimal [32-Bits]
     0000401B CD B6 40         [17]   26   call locate
                                      27   
                                      28   ; print "O"
-    0000401E 3E 4F            [ 7]   29   ld a, #79 ; O
-    00004020 CD BA 40         [17]   30   call putchar
-                                     31 
-                                     32   ; lc rnd(32)+1,24
-    00004023 ED 5F            [ 9]   33   ld a, r ; random
-    00004025 E6 1F            [ 7]   34   and #31
-    00004027 3C               [ 4]   35   inc a
-    00004028 67               [ 4]   36   ld h, a
-    00004029 2E 18            [ 7]   37   ld l, #24
-    0000402B CD B6 40         [17]   38   call locate
-                                     39 
-                                     40   ; print "*"
-    0000402E 3E 2A            [ 7]   41   ld a, #42 ; *
-    00004030 CD BA 40         [17]   42   call putchar
-                                     43 
-    00004033 CD 91 40         [17]   44   call scrolldown
-                                     45 
-                                     46   ; wait 6  
-    00004036 3E 06            [ 7]   47   ld a, #6
-    00004038 CD A3 40         [17]   48   call wait
-                                     49 
-                                     50   ; a = a - btn(7) + btn(3)
-    0000403B CD 61 40         [17]   51   call inkey
-    0000403E FE 03            [ 7]   52   cp #3
-    00004040 20 05            [12]   53   jr nz, skip1
-    00004042 F1               [10]   54   pop af
-    00004043 3C               [ 4]   55   inc a
+                                     29   ;ld a, #79 ; O
+    0000401E 3E EC            [ 7]   30   ld a, #236 ; neko
+    00004020 CD BA 40         [17]   31   call putchar
+                                     32 
+                                     33   ; lc rnd(32)+1,24
+    00004023 ED 5F            [ 9]   34   ld a, r ; random
+    00004025 E6 1F            [ 7]   35   and #31
+    00004027 3C               [ 4]   36   inc a
+    00004028 67               [ 4]   37   ld h, a
+    00004029 2E 18            [ 7]   38   ld l, #24
+    0000402B CD B6 40         [17]   39   call locate
+                                     40 
+                                     41   ; print "*"
+    0000402E 3E 2A            [ 7]   42   ld a, #42 ; *
+    00004030 CD BA 40         [17]   43   call putchar
+                                     44 
+    00004033 CD 91 40         [17]   45   call scrolldown
+                                     46 
+                                     47   ; wait 6  
+    00004036 3E 06            [ 7]   48   ld a, #6
+    00004038 CD A3 40         [17]   49   call wait
+                                     50 
+                                     51   ; a = a - btn(7) + btn(3)
+    0000403B CD 61 40         [17]   52   call inkey
+    0000403E FE 03            [ 7]   53   cp #3
+    00004040 20 05            [12]   54   jr nz, skip1
+    00004042 F1               [10]   55   pop af
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 
 
-    00004044 F5               [11]   56   push af
-    00004045 18 07            [12]   57   jr skip3
-    00004047                         58 skip1:
-    00004047 FE 07            [ 7]   59   cp #7
-    00004049 20 03            [12]   60   jr nz, skip3
-    0000404B F1               [10]   61   pop af
-    0000404C 3D               [ 4]   62   dec a
-    0000404D F5               [11]   63   push af
-    0000404E                         64 skip3:
-                                     65 
-                                     66   ; if scr(a, 5)!=asc("*") goto loop_game
-    0000404E F1               [10]   67   pop af
-    0000404F 67               [ 4]   68   ld h, a
-    00004050 2E 05            [ 7]   69   ld l, #5
-    00004052 F5               [11]   70   push af
-    00004053 CD 67 40         [17]   71   call scr
-    00004056 FE 2A            [ 7]   72   cp #42 ; *
-    00004058 20 BC            [12]   73   jr nz, loop_game
-                                     74 
-                                     75   ; wait 200
-    0000405A 3E C8            [ 7]   76   ld a, #200
-    0000405C CD A3 40         [17]   77   call wait
-                                     78 
-                                     79   ; run
-    0000405F 18 AF            [12]   80   jr main
-                                     81 
-    00004061                         82 inkey: ; a: 1=up, 2=right up, 3=right, 4=right down, 5=down, 6=left down, 7=left, 8=left up
-    00004061 3E 00            [ 7]   83   ld a, #0
-    00004063 CD D5 00         [17]   84   call 0x00D5
-    00004066 C9               [10]   85   ret
-                                     86 
-    00004067                         87 scr: ; h: X, l: y
-    00004067 25               [ 4]   88   dec h
-    00004068 2D               [ 4]   89   dec l
-    00004069 54               [ 4]   90   ld d, h
-    0000406A 5D               [ 4]   91   ld e, l
-    0000406B 4D               [ 4]   92   ld c, l
-    0000406C 06 00            [ 7]   93   ld b, #0
-                                     94 
-                                     95   ; bc <<= 5
-    0000406E CB 21            [ 8]   96   SLA C
-    00004070 CB 10            [ 8]   97   RL  B
-    00004072 CB 21            [ 8]   98   SLA C
-    00004074 CB 10            [ 8]   99   RL  B
-    00004076 CB 21            [ 8]  100   SLA C
-    00004078 CB 10            [ 8]  101   RL  B
-    0000407A CB 21            [ 8]  102   SLA C
-    0000407C CB 10            [ 8]  103   RL  B
-    0000407E CB 21            [ 8]  104   SLA C
-    00004080 CB 10            [ 8]  105   RL  B
-                                    106 
-                                    107   ; bc += d
-    00004082 79               [ 4]  108   ld a, c
-    00004083 82               [ 4]  109   add a, d
-    00004084 4F               [ 4]  110   ld c, a
+    00004043 3C               [ 4]   56   inc a
+    00004044 F5               [11]   57   push af
+    00004045 18 07            [12]   58   jr skip3
+    00004047                         59 skip1:
+    00004047 FE 07            [ 7]   60   cp #7
+    00004049 20 03            [12]   61   jr nz, skip3
+    0000404B F1               [10]   62   pop af
+    0000404C 3D               [ 4]   63   dec a
+    0000404D F5               [11]   64   push af
+    0000404E                         65 skip3:
+                                     66 
+                                     67   ; if scr(a, 5)!=asc("*") goto loop_game
+    0000404E F1               [10]   68   pop af
+    0000404F 67               [ 4]   69   ld h, a
+    00004050 2E 05            [ 7]   70   ld l, #5
+    00004052 F5               [11]   71   push af
+    00004053 CD 67 40         [17]   72   call scr
+    00004056 FE 2A            [ 7]   73   cp #42 ; *
+    00004058 20 BC            [12]   74   jr nz, loop_game
+                                     75 
+                                     76   ; wait 200
+    0000405A 3E C8            [ 7]   77   ld a, #200
+    0000405C CD A3 40         [17]   78   call wait
+                                     79 
+                                     80   ; run
+    0000405F 18 AF            [12]   81   jr main
+                                     82 
+    00004061                         83 inkey: ; a: 1=up, 2=right up, 3=right, 4=right down, 5=down, 6=left down, 7=left, 8=left up
+    00004061 3E 00            [ 7]   84   ld a, #0
+    00004063 CD D5 00         [17]   85   call 0x00D5
+    00004066 C9               [10]   86   ret
+                                     87 
+    00004067                         88 scr: ; h: X, l: y
+    00004067 25               [ 4]   89   dec h
+    00004068 2D               [ 4]   90   dec l
+    00004069 54               [ 4]   91   ld d, h
+    0000406A 5D               [ 4]   92   ld e, l
+    0000406B 4D               [ 4]   93   ld c, l
+    0000406C 06 00            [ 7]   94   ld b, #0
+                                     95 
+                                     96   ; bc <<= 5
+    0000406E CB 21            [ 8]   97   SLA C
+    00004070 CB 10            [ 8]   98   RL  B
+    00004072 CB 21            [ 8]   99   SLA C
+    00004074 CB 10            [ 8]  100   RL  B
+    00004076 CB 21            [ 8]  101   SLA C
+    00004078 CB 10            [ 8]  102   RL  B
+    0000407A CB 21            [ 8]  103   SLA C
+    0000407C CB 10            [ 8]  104   RL  B
+    0000407E CB 21            [ 8]  105   SLA C
+    00004080 CB 10            [ 8]  106   RL  B
+                                    107 
+                                    108   ; bc += d
+    00004082 79               [ 4]  109   ld a, c
+    00004083 82               [ 4]  110   add a, d
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 
 
-    00004085 D2 89 40         [10]  111   jp nc, scr_skip
-    00004088 04               [ 4]  112   inc b
-    00004089                        113 scr_skip:
-                                    114 
-    00004089 21 00 18         [10]  115   ld hl, #0x1800
-    0000408C 09               [11]  116   add hl, bc
-                                    117 
-    0000408D CD 4A 00         [17]  118   call 0x004A
-    00004090 C9               [10]  119   ret
-                                    120 
-    00004091                        121 scrolldown:
-    00004091 26 01            [ 7]  122   ld h, #1
-    00004093 2E 18            [ 7]  123   ld l, #24
-    00004095 CD B6 40         [17]  124   call locate
-    00004098 3E 0A            [ 7]  125   ld a, #10; enter
-    0000409A CD BA 40         [17]  126   call putchar
-    0000409D 3E 0D            [ 7]  127   ld a, #13; enter
-    0000409F CD BA 40         [17]  128   call putchar
-    000040A2 C9               [10]  129   ret
-                                    130 
-    000040A3                        131 wait: ; count: a
-    000040A3 06 FF            [ 7]  132   ld b, #255
-    000040A5                        133 wait_loop:
-    000040A5 00               [ 4]  134   nop
-    000040A6 00               [ 4]  135   nop
-    000040A7 00               [ 4]  136   nop
-    000040A8 00               [ 4]  137   nop
-    000040A9 00               [ 4]  138   nop
-    000040AA 00               [ 4]  139   nop
-    000040AB 00               [ 4]  140   nop
-    000040AC 00               [ 4]  141   nop
-    000040AD 00               [ 4]  142   nop
-    000040AE 00               [ 4]  143   nop
-    000040AF 10 F4            [13]  144   djnz wait_loop
-    000040B1 3D               [ 4]  145   dec a
-    000040B2 B7               [ 4]  146   or a
-    000040B3 20 EE            [12]  147   jr nz, wait
-    000040B5 C9               [10]  148   ret
-                                    149 
-    000040B6                        150 locate: ; H: x, L: y
-    000040B6 CD C6 00         [17]  151   call 0x00C6   ; POSIT（カーソル表示と位置制御に関わる）
-    000040B9 C9               [10]  152   ret
-                                    153 
-    000040BA                        154 putchar: ; A: char
-    000040BA CD A2 00         [17]  155   call 0x00A2   ; CHPUT
-    000040BD C9               [10]  156   ret
-                                    157 
-    000040BE                        158 width32:
-    000040BE 3E 20            [ 7]  159   ld a, #32     ;WIDTH=32
-    000040C0 32 AF F3         [13]  160   ld (0xF3AF), a
-    000040C3 C9               [10]  161   ret
-                                    162 
-    000040C4                        163 cls:
-    000040C4 CD BE 40         [17]  164   call width32 ; width 32
-    000040C7 3E 01            [ 7]  165   ld a, #1
+    00004084 4F               [ 4]  111   ld c, a
+    00004085 D2 89 40         [10]  112   jp nc, scr_skip
+    00004088 04               [ 4]  113   inc b
+    00004089                        114 scr_skip:
+                                    115 
+    00004089 21 00 18         [10]  116   ld hl, #0x1800
+    0000408C 09               [11]  117   add hl, bc
+                                    118 
+    0000408D CD 4A 00         [17]  119   call 0x004A
+    00004090 C9               [10]  120   ret
+                                    121 
+    00004091                        122 scrolldown:
+    00004091 26 01            [ 7]  123   ld h, #1
+    00004093 2E 18            [ 7]  124   ld l, #24
+    00004095 CD B6 40         [17]  125   call locate
+    00004098 3E 0A            [ 7]  126   ld a, #10; enter
+    0000409A CD BA 40         [17]  127   call putchar
+    0000409D 3E 0D            [ 7]  128   ld a, #13; enter
+    0000409F CD BA 40         [17]  129   call putchar
+    000040A2 C9               [10]  130   ret
+                                    131 
+    000040A3                        132 wait: ; count: a
+    000040A3 06 FF            [ 7]  133   ld b, #255
+    000040A5                        134 wait_loop:
+    000040A5 00               [ 4]  135   nop
+    000040A6 00               [ 4]  136   nop
+    000040A7 00               [ 4]  137   nop
+    000040A8 00               [ 4]  138   nop
+    000040A9 00               [ 4]  139   nop
+    000040AA 00               [ 4]  140   nop
+    000040AB 00               [ 4]  141   nop
+    000040AC 00               [ 4]  142   nop
+    000040AD 00               [ 4]  143   nop
+    000040AE 00               [ 4]  144   nop
+    000040AF 10 F4            [13]  145   djnz wait_loop
+    000040B1 3D               [ 4]  146   dec a
+    000040B2 B7               [ 4]  147   or a
+    000040B3 20 EE            [12]  148   jr nz, wait
+    000040B5 C9               [10]  149   ret
+                                    150 
+    000040B6                        151 locate: ; H: x, L: y
+    000040B6 CD C6 00         [17]  152   call 0x00C6   ; POSIT（カーソル表示と位置制御に関わる）
+    000040B9 C9               [10]  153   ret
+                                    154 
+    000040BA                        155 putchar: ; A: char
+    000040BA CD A2 00         [17]  156   call 0x00A2   ; CHPUT
+    000040BD C9               [10]  157   ret
+                                    158 
+    000040BE                        159 width32:
+    000040BE 3E 20            [ 7]  160   ld a, #32     ;WIDTH=32
+    000040C0 32 AF F3         [13]  161   ld (0xF3AF), a
+    000040C3 C9               [10]  162   ret
+                                    163 
+    000040C4                        164 cls:
+    000040C4 CD BE 40         [17]  165   call width32 ; width 32
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 
 
-    000040C9 CD 5F 00         [17]  166   call 0x005F   ; CHGMOD - スクリーンモード切替
-    000040CC CD C3 00         [17]  167   call 0x00C3   ; CLS - 画面全体をクリア
-    000040CF C9               [10]  168   ret
+    000040C7 3E 01            [ 7]  166   ld a, #1
+    000040C9 CD 5F 00         [17]  167   call 0x005F   ; CHGMOD - スクリーンモード切替
+    000040CC CD C3 00         [17]  168   call 0x00C3   ; CLS - 画面全体をクリア
+    000040CF C9               [10]  169   ret

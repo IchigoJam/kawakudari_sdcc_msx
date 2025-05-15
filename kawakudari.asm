@@ -26,7 +26,8 @@ loop_game:
   call locate
   
   ; print "O"
-  ld a, #79 ; O
+  ;ld a, #79 ; O
+  ld a, #236 ; neko
   call putchar
 
   ; lc rnd(32)+1,24
