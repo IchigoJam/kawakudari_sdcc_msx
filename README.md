@@ -1,7 +1,7 @@
 # kawakudari for MSX with SDCC
 
 - kawakudari for MSX with [SDCC](https://sdcc.sourceforge.net/)
-- [run on MIX](https://github.com/ichigojam/MIX)
+- [run on MIX](https://github.com/ichigojam/MIX) (see also [openMSX ver](https://github.com/IchigoJam/kawakudari_sdcc_msx/tree/openMSX))
 
 ## compile and run
 
