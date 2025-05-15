@@ -1,7 +1,7 @@
 # kawakudari for MSX with SDCC
 
 - kawakudari for MSX with [SDCC](https://sdcc.sourceforge.net/)
-- [run on WebMSX/CBIOS](https://webmsx.org/cbios/?ROM=https://ichigojam.github.io/kawakudari_sdcc_msx/kawakudari.rom)
+- [run on MIX](https://github.com/ichigojam/MIX)
 
 ## compile and run
 
@@ -17,14 +17,6 @@ sh c.sh kawakudari
 
 ```sh
 brew install sdcc
-```
-
-### openMSX
-
-- [openMSX](https://openmsx.org/)
-
-```sh
-brew install openmsx
 ```
 
 ## reference
